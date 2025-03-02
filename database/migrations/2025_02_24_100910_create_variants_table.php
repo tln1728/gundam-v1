@@ -16,9 +16,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
             $table->string('variant_name');
-            $table->string('sku')->unique();
+            $table->string('sku', 50)->unique();
             $table->unsignedInteger('stock');
-            $table->decimal('extra_price',11,2) -> default(0);
+            $table->decimal('extra_price', 11, 2)->default(0);
             $table->timestamps();
         });
     }

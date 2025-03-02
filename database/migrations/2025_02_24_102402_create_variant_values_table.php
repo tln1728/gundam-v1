@@ -14,8 +14,9 @@ return new class extends Migration
     {
         Schema::create('variant_values', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(VariantAttribute::class) -> constrained() -> cascadeOnDelete();
+            $table->foreignIdFor(VariantAttribute::class)->constrained()->cascadeOnDelete();
             $table->string('value');
+            $table->unique(['variant_attribute_id', 'value']);
             $table->timestamps();
         });
     }

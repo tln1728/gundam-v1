@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class VariantValue extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'variant_attribute_id',
+        'value'
+    ];
+
+    public function variants()
+    {
+        return $this->belongsToMany(Variant::class, 'pivot_vv');
+    }
+
+    public function variantAttribute()
+    {
+        return $this->belongsTo(VariantAttribute::class );
+    }
 }

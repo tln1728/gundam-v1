@@ -16,10 +16,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Category::class) -> constrained() -> cascadeOnDelete();
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->text('description');
             $table->decimal('price',11,2);
-            // giá cao nhất là 99 triệu (99.999.999,00)
+            // giá cao nhất là 999 triệu (999.999.999,00)
             $table->string('thumbnail');
             $table->timestamps();
         });
