@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price',11,2);
             // giá cao nhất là 999 triệu (999.999.999,00)
-            $table->string('thumbnail');
+            $table->json('thumbnail');
             $table->timestamps();
         });
     }
