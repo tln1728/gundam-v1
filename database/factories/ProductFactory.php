@@ -29,10 +29,7 @@ class ProductFactory extends Factory
             'slug'        => fake()->slug(),
             'description' => fake()->paragraph(),
             'price'       => fake()->randomFloat(2,100000,999999999),
-            'thumbnail'   => json_encode([
-                'https://picsum.photos/'.fake()->numberBetween(700, 1000),
-                'https://picsum.photos/'.fake()->numberBetween(700, 1000),
-            ]),
+            'thumbnail'   => "https://picsum.photos/".fake()->numberBetween(700, 1000),
         ];
     }
 }
