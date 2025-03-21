@@ -1,5 +1,5 @@
+# Laravel-specific
 /.phpunit.cache
-/node_modules
 /public/build
 /public/hot
 /public/storage
@@ -12,8 +12,32 @@
 Homestead.json
 Homestead.yaml
 auth.json
+
+# Logs
+logs
+*.log
 npm-debug.log
 yarn-error.log
-/.fleet
-/.idea
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node.js and build artifacts
+/node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+# .vscode/*
 /.vscode
+!.vscode/extensions.jsonD
+/.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# IDE-specific
+/.fleet

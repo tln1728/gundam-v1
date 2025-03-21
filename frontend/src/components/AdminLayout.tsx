@@ -120,7 +120,7 @@ const AdminLayout = () => {
                                     <div className="me-3 text-white">Xin chào Admin</div>
                                     <div className="rounded-circle overflow-hidden" style={{ width: '35px', height: '35px' }}>
                                         <img
-                                            src="../src/assets/default-avatar.png"
+                                            src="../assets/default-avatar.png"
                                             alt="Admin Avatar"
                                             className="img-fluid"
                                         />
