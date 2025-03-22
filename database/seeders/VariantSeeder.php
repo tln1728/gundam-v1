@@ -6,12 +6,16 @@ use App\Models\ProductImage;
 use App\Models\Variant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class VariantSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
+
+    // 123 random color 
+    // 4-S, 5-M, 6-L, 7-XL
     public function run(): void
     {
         $variants = [
@@ -25,6 +29,9 @@ class VariantSeeder extends Seeder
                 'images' => [
                     'https://picsum.photos/1000',
                     'https://picsum.photos/1000',
+                ],
+                'values' => [
+                    1, 4
                 ]
             ],
             [
@@ -37,6 +44,9 @@ class VariantSeeder extends Seeder
                 'images' => [
                     'https://picsum.photos/1000',
                     'https://picsum.photos/1000',
+                ],
+                'values' => [
+                    2, 3
                 ]
             ],
             [
@@ -48,6 +58,9 @@ class VariantSeeder extends Seeder
                 'extra_price' => 0,
                 'images' => [
                     'https://picsum.photos/1000',
+                ],
+                'values' => [
+                    2, 4
                 ]
             ],
             [
@@ -59,6 +72,9 @@ class VariantSeeder extends Seeder
                 'extra_price' => 100000,
                 'images' => [
                     'https://picsum.photos/1000',
+                ],
+                'values' => [
+                    3, 7
                 ]
             ],
             [
@@ -70,6 +86,9 @@ class VariantSeeder extends Seeder
                 'extra_price' => 0,
                 'images' => [
                     'https://picsum.photos/1000',
+                ],
+                'values' => [
+                    1, 6
                 ]
             ],
             [
@@ -81,14 +100,18 @@ class VariantSeeder extends Seeder
                 'extra_price' => 20000,
                 'images' => [
                     'https://picsum.photos/1000',
+                ],
+                'values' => [
+                    3, 5
                 ]
             ],
         ];
         
         foreach ($variants as $variant) {
             $images = $variant['images'] ?? [];
+            $values = $variant['values'] ?? [];
 
-            unset($variant['images']);
+            unset($variant['images'], $variant['values']);
 
             Variant::create($variant);
 
@@ -97,6 +120,13 @@ class VariantSeeder extends Seeder
                     'variant_id' => $variant['id'],
                     'product_id' => $variant['product_id'],
                     'image_url'  => $imgPath,
+                ]);
+            }
+
+            foreach ($values as $value) {
+                DB::table('pivot_vv')->insert([
+                    'variant_id'       => $variant['id'],
+                    'variant_value_id' => $value,
                 ]);
             }
         }
