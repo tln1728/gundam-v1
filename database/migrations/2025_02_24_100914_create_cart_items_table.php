@@ -18,14 +18,14 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Variant::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Variant::class)->constrained()->cascadeOnDelete();
             $table->string('product_name');
             $table->string('variant_name');
             $table->string('sku');
             $table->decimal('product_price', 11, 2);
             $table->decimal('extra_price', 11, 2)->default(0);
             $table->unsignedInteger('quantity')->default(1);
-            $table->json('attributes')->nullable();
+            $table->json('attributes');
             $table->timestamps();
         });
     }
