@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,3 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('products', 'index')         -> name('products.index');
+        Route::get('products/create', 'create') -> name('products.create');
+        Route::post('products/create', 'store') -> name('products.store');
+    });
+});
