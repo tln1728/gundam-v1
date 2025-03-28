@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStoreRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::with('category:id,name')->withCount('variants')->paginate(10);
 
         return view('admin.products.list', [
             'products' => $products
@@ -24,20 +25,9 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'categoryId' => 'required|exists:categories,id',
-            'slug' => 'required|string|unique:products',
-            'price' => 'required|numeric|min:0|max:999999999.99',
-            'description' => 'required|string',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
-
-            'productImages' => 'nullable|array',
-            'productImages.*' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
-        ]);
-
+        dd($request->all());
         // Xử lí upload file cho thumbnail của product
         if ($request->hasFile('thumbnail')) {
             $validatedData['thumbnail'] = $request->file('thumbnail')->store('product_thumbnails');
@@ -55,7 +45,7 @@ class ProductController extends Controller
 
         // $product->productImages()->createMany($images);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Tạo sản phẩm thành công');
     }
 
     public function show(string $id)

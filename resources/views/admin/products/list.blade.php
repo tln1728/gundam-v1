@@ -58,27 +58,33 @@
         <table class="min-w-full bg-white">
             <thead>
                 <tr>
-                    <th
-                        class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
-                        Image</th>
-                    <th
-                        class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
-                        Product</th>
-                    <th
-                        class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
-                        Category</th>
-                    <th
-                        class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
-                        Price</th>
-                    <th
-                        class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
-                        Stock</th>
-                    <th
-                        class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
-                        Status</th>
-                    <th
-                        class="px-6 py-3 border-b-2 border-gray-300 text-right text-sm leading-4 text-gray-500 uppercase tracking-wider">
-                        Actions</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
+                        Image
+                    </th>
+
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
+                        Product
+                    </th>
+
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
+                        Category
+                    </th>
+
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
+                        Price
+                    </th>
+
+                    <!-- <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
+                        Stock
+                    </th> -->
+
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">
+                        Variant count
+                    </th>
+
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-right text-sm leading-4 text-gray-500 uppercase tracking-wider">
+                        Actions
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -89,29 +95,28 @@
                             <img src="https://placehold.co/400" class="h-12 w-12 rounded object-cover" alt="Product Image">
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                            <div class="text-sm leading-5 font-medium text-gray-900">Smartphone X</div>
-                            <div class="text-sm leading-5 text-gray-500">SKU: SM-X12345</div>
+                            <div class="text-sm leading-5 font-medium text-gray-900">{{$product->name}}</div>
+                            <div class="text-sm leading-5 text-gray-500">{{$product->slug}}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                            <div class="text-sm leading-5 text-gray-900">Electronics</div>
+                            <div class="text-sm leading-5 text-gray-900">{{$product->category->name}}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                            <div class="text-sm leading-5 text-gray-900">$899.99</div>
+                            <div class="text-sm leading-5 text-gray-900">{{$product->price}}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                            <div class="text-sm leading-5 text-gray-900">125</div>
+                            <div class="text-sm leading-5 text-gray-900">{{$product->variants_count}}</div>
                         </td>
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                            <span
-                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">In
-                                Stock</span>
-                        </td>
-                        <td
-                            class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-300 text-sm leading-5 font-medium">
-                            <a href="/admin/products/edit/1" class="text-indigo-600 hover:text-indigo-900 mr-3">
+                        <!-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">In
+                                Stock
+                            </span>
+                        </td> -->
+                        <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-300 text-sm leading-5 font-medium">
+                            <a href="{{route('products.edit', $product->slug)}}" class="text-indigo-600 hover:text-indigo-900 mr-3">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#" class="text-red-600 hover:text-red-900"
+                            <a href="{{ route('products.destroy', $product->slug) }}" class="text-red-600 hover:text-red-900"
                                 onclick="return confirm('Are you sure you want to delete this product?')">
                                 <i class="fas fa-trash"></i>
                             </a>
@@ -124,9 +129,11 @@
 
         <!-- Pagination -->
 
-        <div class="px-6 py-3 border-t border-gray-300">
-            {{ $products->links() }}
-        </div>
+        @if($products->hasPages())
+            <div class="px-6 py-3 border-t border-gray-300">
+                {{ $products->links() }}
+            </div>
+        @endif
     </div>
 
 @endsection
